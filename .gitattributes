@@ -4,3 +4,8 @@ data/cancer_subtyping/AML_aml.zip filter=lfs diff=lfs merge=lfs -text
 data/cancer_subtyping/*.rar filter=lfs diff=lfs merge=lfs -text
 data/pancancer/*.rar filter=lfs diff=lfs merge=lfs -text
 data/pancancer/*.zip filter=lfs diff=lfs merge=lfs -text
+result/cancer[[:space:]]subtype.zip filter=lfs diff=lfs merge=lfs -text
+result/image(full).zip filter=lfs diff=lfs merge=lfs -text
+result/image(partial).zip filter=lfs diff=lfs merge=lfs -text
+result/pancancer(full).zip filter=lfs diff=lfs merge=lfs -text
+result/pancancer(partial).zip filter=lfs diff=lfs merge=lfs -text
