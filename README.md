@@ -34,9 +34,9 @@ Han Xu <myxuxiaohan@outlook.com>
 MSNE(views, n_clusters=5, k=20,workers=4, walk_length=20, num_walks=100, embed_size=100, window_size=10)
 ```
 MSNE is a multi-omics integrative clustering method for cancer subtyping, especially when the
-    multi-omics dataset is partial (e.g. some samples have only a subset of omics data). MSNE construct
-    similarity network for each omics data, and then embedding the multiple similarity networks to
-    d-dimensional vector space. Kmeans is used to cluster the samples finally.
+multi-omics dataset is partial (e.g. some samples have only a subset of omics data). MSNE construct
+similarity network for each omics data, and then embedding the multiple similarity networks to
+d-dimensional vector space. Kmeans is used to cluster the samples finally.
 
     :param views: the list of pandas.DataFrame(i.e. omics data). each row in omics data is a sample, each column in omics
      data is a feature. the index of omics data will be considered as the name of sample.
@@ -61,7 +61,10 @@ MSNE is a multi-omics integrative clustering method for cancer subtyping, especi
 
 ###example:
 ```python
-view1=pd.read_csv("../data/handwritten/mfeat-fou.csv", index_col=0)
+    import pandas as pd
+    from embedding import MSNE
+
+    view1=pd.read_csv("../data/handwritten/mfeat-fou.csv", index_col=0)
     view2=pd.read_csv("../data/handwritten/mfeat-pix.csv", index_col=0)
 
     #apply MSNE on the multi-view dataset.
@@ -74,5 +77,3 @@ view1=pd.read_csv("../data/handwritten/mfeat-fou.csv", index_col=0)
     embeddings=result["embeddings"].reindex(samples)
     group=result["group"].reindex(samples).values.reshape(-1)
 ```
-
-
