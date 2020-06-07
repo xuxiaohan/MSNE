@@ -77,3 +77,35 @@ d-dimensional vector space. Kmeans is used to cluster the samples finally.
     embeddings=result["embeddings"].reindex(samples)
     group=result["group"].reindex(samples).values.reshape(-1)
 ```
+
+
+# Description of data
+## pancancer dataset
+We download omics data of five cancer samples from [TCGA](https://portal.gdc.cancer.gov/). The features in each omics was mapped to gene. The samples of these cancer was concatenated. We have already removed the duplicate measured samples and raw partial samples. The mRNA data was in log scale. The top 5000 variant features was selected. After these preprocessing, we got the [pancancer.zip](https://github.com/xuxiaohan/MSNE/tree/master/data/pancacer/pancancer.zip) that contain the full multi-omics data. z-score transformation was not applied on it, because z-score should be used after generating simulated partial datasets.
+There are too many combinations of different removing threshold on different omics data. When integrated different omics, the KNN imputation should be applied on each datasets (in our paper, for the purpose of comparing with other methods that can not apply on partial datasets, We perfomred imputation for the partial sampels for ohter methods). the total size of these datasets was about 37GB. Therefore, We did not provide the simulated partial multi-omics datasets.
+you can generate all these simulated partial multi-omics datasets based on [pancancer.zip](https://github.com/xuxiaohan/MSNE/tree/master/data/pancacer/pancancer.zip).
+
+## image dataset
+the image dataset was download from [multi view dataset](https://archive.ics.uci.edu/ml/datasets/Multiple+Features). We did not applied any preprocessing on it, except removing some samples to simulate partial datasets.
+
+## cancer subtyping
+We used ten datasets from a review of multi-omics integrative methods. The datasets contain mRNA expression data, DNA methylation data, microRNA expression data, and clinical information of total 4941 samples of ten cancer types. All of these datasets is partial multi-omics data. these datasets was download from http://acgt.cs.tau.ac.il/multi_omic_benchmark/download.html. We regards the first three fields of samples name as the unique id of samples, and removed the duplicated measurements for the same sample.(e.g. 'TCGA.E2.A15K.11', 'TCGA.E2.A15K.06', 'TCGA.E2.A15K.01' was regarded as the same sample, and only the first one was remained.)
+
+
+### addition information
+
+For convenience to reproduce the result in our paper, we use pandas.DataFrame.sample to generate simulated partial data, and the random_state is hash(f"{omic}_{int(p*10)}")%1000.
+
+For example: 
+```python
+# randomly remove 30% samples from mrna.
+df=read_csv(....)# the mrna data. Each row is a sample, and each column is a feature.
+df1=df.sample(frac=0.7,random_state=hash(f"mrna_3")%1000)
+df1.to_csv("the_partial_mrna_data.csv")
+
+# randomly remove 30% samples from pixel view in image data.
+df=read_csv(....)# the pix view data. Each row is a sample, and each column is a feature.
+df1=df.sample(frac=0.7,random_state=hash(f"mfeat-pix_3")%1000)
+df1.to_csv("mfeat-pix_partial_data.csv")
+
+```
