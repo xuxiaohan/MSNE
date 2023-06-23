@@ -21,6 +21,12 @@ Integrative analysis of multiple omics offers the opportunity to uncover coordin
 
 1.0.0
 
+## requirement
+
+```
+gensim<4.0.0
+```
+
 ## Author
 
 Han Xu, Lin Gao, Mingfeng Huang, Ran Duan.
@@ -82,6 +88,7 @@ d-dimensional vector space. Kmeans is used to cluster the samples finally.
 
 
 # Description of data
+***We have migrated all datasets to [MSNE_dataset](https://figshare.com/articles/dataset/MSNE_dataset/21802707) in figshare, since we realized it was not convenient to share large files in github.***
 ## pancancer dataset
 We download omics data of five cancer samples from [TCGA](https://portal.gdc.cancer.gov/). The features in each omics was mapped to gene. The samples of these cancer was concatenated. We have already removed the duplicate measured samples and raw partial samples. The mRNA data was in log scale. The top 5000 variant features was selected. After these preprocessing, we got the [pancancer.zip](https://github.com/xuxiaohan/MSNE/tree/master/data/pancacer/pancancer.zip) that contain the full multi-omics data. z-score transformation was not applied on it, because z-score should be used after generating simulated partial datasets.
 There are too many combinations of different removing threshold on different omics data. When integrated different omics, the KNN imputation should be applied on each datasets (in our paper, for the purpose of comparing with other methods that can not apply on partial datasets, We perfomred imputation for the partial sampels for ohter methods). the total size of these datasets was about 37GB. Therefore, We did not provide the simulated partial multi-omics datasets.
